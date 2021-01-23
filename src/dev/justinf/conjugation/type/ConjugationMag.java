@@ -1,5 +1,7 @@
 package dev.justinf.conjugation.type;
 
+import dev.justinf.conjugation.locale.VCLocale;
+
 public class ConjugationMag implements Conjugation {
 
     @Override
@@ -47,6 +49,18 @@ public class ConjugationMag implements Conjugation {
             return "mag-" + root.charAt(0) + root;
         } else {
             return "mag" + root.substring(0, 2) + root;
+        }
+    }
+
+    @Override
+    public String explanation(String root) {
+        switch (rootIndex(root)) {
+            case 0:
+                return VCLocale.EXPLANATION_MAG_VOWEL_FIRST.msg();
+            case 1:
+                return VCLocale.EXPLANATION_MAG.msg();
+            default:
+                return VCLocale.EXPLANATION_INVALID_ROOT.msg();
         }
     }
 }

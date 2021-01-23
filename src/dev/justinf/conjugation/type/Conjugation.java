@@ -10,6 +10,8 @@ public interface Conjugation {
     String present(String root);
     String future(String root);
 
+    String explanation(String root);
+
     default int rootIndex(String s) {
         if (s.length() <= 1) { // We look for at least two characters in the string
             return -1;

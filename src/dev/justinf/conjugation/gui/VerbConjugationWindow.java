@@ -33,6 +33,11 @@ public class VerbConjugationWindow {
     private JTextField presentTextField;
     private JTextField futureTextField;
     private JPanel resultPanel;
+    private JPanel explanationLabelPanel;
+    private JPanel explanationPanel;
+    private JScrollPane explanationScrollWrapper;
+    private JTextArea explanationTextArea;
+    private JLabel explanationLabel;
 
     public VerbConjugationWindow(VerbConjugationApp app) {
         this.app = app;
@@ -40,6 +45,24 @@ public class VerbConjugationWindow {
         umRadio.addActionListener(new SelectionRadioListener(app, rootTextField, umRadio));
         magRadio.addActionListener(new SelectionRadioListener(app, rootTextField, magRadio));
         maRadio.addActionListener(new SelectionRadioListener(app, rootTextField, maRadio));
+    }
+
+    public void updateExplanationArea(String text) {
+        String oldText = explanationTextArea.getText();
+        if (text.equalsIgnoreCase(oldText)) return; // If the explanation is the same, do nothing
+
+        explanationTextArea.setText(text);
+        new Thread(() -> {
+            try {
+                Thread.sleep(10);
+            } catch (Exception ignored) {
+                return;
+            }
+
+            // We can now assume that the text is changed, so we need to reset the scrollbar position
+            JScrollBar vertBar = explanationScrollWrapper.getVerticalScrollBar();
+            vertBar.setValue(vertBar.getMinimum());
+        }).start();
     }
 
     public JPanel getFrame() {
@@ -72,5 +95,9 @@ public class VerbConjugationWindow {
 
     public JTextField getFutureTextField() {
         return futureTextField;
+    }
+
+    public JTextArea getExplanationTextArea() {
+        return explanationTextArea;
     }
 }

@@ -1,6 +1,7 @@
 package dev.justinf.conjugation;
 
 import dev.justinf.conjugation.gui.VerbConjugationWindow;
+import dev.justinf.conjugation.locale.VCLocale;
 import dev.justinf.conjugation.type.Conjugation;
 import dev.justinf.conjugation.type.ConjugationMa;
 import dev.justinf.conjugation.type.ConjugationMag;
@@ -39,11 +40,12 @@ public class VerbConjugationApp {
 
     public void update(String root) {
         int rootIndex = conjugation.rootIndex(root);
+        window.updateExplanationArea(conjugation.explanation(root));
         if (rootIndex == -1) {
-            window.getNeutralTextField().setText("<invalid root>");
-            window.getPastTextField().setText("<invalid root>");
-            window.getPresentTextField().setText("<invalid root>");
-            window.getFutureTextField().setText("<invalid root>");
+            window.getNeutralTextField().setText(VCLocale.INVALID_ROOT.msg());
+            window.getPastTextField().setText(VCLocale.INVALID_ROOT.msg());
+            window.getPresentTextField().setText(VCLocale.INVALID_ROOT.msg());
+            window.getFutureTextField().setText(VCLocale.INVALID_ROOT.msg());
         } else {
             window.getNeutralTextField().setText(conjugation.neutral(root));
             window.getPastTextField().setText(conjugation.past(root));

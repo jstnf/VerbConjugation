@@ -1,5 +1,7 @@
 package dev.justinf.conjugation.type;
 
+import dev.justinf.conjugation.locale.VCLocale;
+
 public class ConjugationUm implements Conjugation {
 
     @Override
@@ -60,6 +62,15 @@ public class ConjugationUm implements Conjugation {
             return root.charAt(0) + root;
         } else {
             return root.substring(0, 2) + root;
+        }
+    }
+
+    @Override
+    public String explanation(String root) {
+        if (rootIndex(root) == -1) {
+            return VCLocale.EXPLANATION_INVALID_ROOT.msg();
+        } else {
+            return VCLocale.EXPLANATION_UM.msg();
         }
     }
 }
